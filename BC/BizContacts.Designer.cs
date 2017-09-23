@@ -32,7 +32,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboSearch = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -41,6 +41,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 427);
             this.dataGridView1.Name = "dataGridView1";
@@ -63,13 +64,17 @@
             this.txtSearch.Size = new System.Drawing.Size(192, 20);
             this.txtSearch.TabIndex = 2;
             // 
-            // comboBox1
+            // cboSearch
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(271, 392);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 3;
+            this.cboSearch.FormattingEnabled = true;
+            this.cboSearch.Items.AddRange(new object[] {
+            "First Name",
+            "Last Name",
+            "Company"});
+            this.cboSearch.Location = new System.Drawing.Point(271, 392);
+            this.cboSearch.Name = "cboSearch";
+            this.cboSearch.Size = new System.Drawing.Size(121, 21);
+            this.cboSearch.TabIndex = 3;
             // 
             // btnSearch
             // 
@@ -80,18 +85,23 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(BC.BizContacts);
+            // 
             // BizContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 611);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "BizContacts";
             this.Text = "BizCintacts";
+            this.Load += new System.EventHandler(this.BizContacts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
@@ -104,7 +114,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.BindingSource bindingSource1;
     }
