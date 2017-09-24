@@ -17,6 +17,7 @@ namespace BC
         string connString = @"Data Source=DESKTOP-PC\SQLEXPRESS;Initial Catalog=AddressBook;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlDataAdapter dataAdapter;
         DataTable table;
+        SqlCommandBuilder commandBuilder;
 
         public BizContacts()
         {
@@ -40,6 +41,7 @@ namespace BC
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table);
                 bindingSource1.DataSource = table;
+                dataGridView1.Columns[0].ReadOnly = true;
             }
             catch(SqlException ex)
             {
@@ -79,6 +81,22 @@ namespace BC
             }
             GetData("Select * from BizContacts");
             dataGridView1.Update();
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            commandBuilder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
+            try
+            {
+                bindingSource1.EndEdit();
+                dataAdapter.Update(table);
+                MessageBox.Show("Update Successfull");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
