@@ -130,5 +130,21 @@ namespace BC
             }
             
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            switch (cboSearch.SelectedItem.ToString())
+            {
+                case "First Name":
+                    GetData("select * from bizcontacts where lower(first_name) like '%" + txtSearch.Text.ToLower() + "%' ");
+                    break;
+                case "Last Name":
+                    GetData("select * from bizcontacts where lower(last_name) like '%" + txtSearch.Text.ToLower() + "%' ");
+                    break;
+                case "Company":
+                    GetData("select * from bizcontacts where lower(company) like '%" + txtSearch.Text.ToLower() + "%' ");
+                    break;
+            }
+        }
     }
 }
