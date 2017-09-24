@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Sql;
 using System.IO;
+using System.Diagnostics;
+using Microsoft.Office.Interop.Excel;
 
 namespace BC
 {
@@ -17,8 +19,7 @@ namespace BC
     {
         string connString = @"Data Source=DESKTOP-PC\SQLEXPRESS;Initial Catalog=AddressBook;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlDataAdapter dataAdapter;
-        DataTable table;
-        SqlCommandBuilder commandBuilder;
+        System.Data.DataTable table;
         SqlConnection conn;
         string selectionStatement = "select * from BizContacts";
 
@@ -40,7 +41,7 @@ namespace BC
             try
             {
                 dataAdapter = new SqlDataAdapter(selectCommand, connString);
-                table = new DataTable();
+                table = new System.Data.DataTable();
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table);
                 bindingSource1.DataSource = table;
@@ -92,7 +93,7 @@ namespace BC
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            commandBuilder = new SqlCommandBuilder(dataAdapter);
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
             dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
             try
             {
@@ -154,7 +155,7 @@ namespace BC
 
         private void btnGetImage_Click(object sender, EventArgs e)
         {
-            dlgOpenImage.ShowDialog();
+            if(dlgOpenImage.ShowDialog()==DialogResult.OK)
             pictureBox1.Load(dlgOpenImage.FileName);
         }
 
@@ -163,6 +164,48 @@ namespace BC
             Form frm = new Form();
             frm.BackgroundImage = pictureBox1.Image;
             frm.Show();
+        }
+
+        private void btnExportOpen_Click(object sender, EventArgs e)
+        {
+            _Application excel = new Microsoft.Office.Interop.Excel.Application();
+            _Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            _Worksheet worksheet = null;
+            try
+            {
+                worksheet = workbook.ActiveSheet;
+                worksheet.Name = "Business Contacts";
+                for(int rowIndex = 0; rowIndex < dataGridView1.Rows.Count - 1; rowIndex++)
+                {
+                    for(int colIndex= 0; colIndex<dataGridView1.Columns.Count; colIndex++)
+                    {
+                        if (rowIndex == 0)
+                        {
+                            worksheet.Cells[rowIndex + 1, colIndex + 1] = dataGridView1.Columns[colIndex].HeaderText;
+                        }
+                        else
+                        {
+                            worksheet.Cells[rowIndex + 1, colIndex + 1] = dataGridView1.Rows[rowIndex].Cells[colIndex].Value.ToString();
+
+                        }
+                    }
+                }
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    workbook.SaveAs(saveFileDialog1.FileName);
+                    Process.Start("excel.exe", saveFileDialog1.FileName);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
+            }
         }
     }
 }

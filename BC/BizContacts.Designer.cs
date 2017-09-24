@@ -63,7 +63,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnGetImage = new System.Windows.Forms.Button();
             this.dlgOpenImage = new System.Windows.Forms.OpenFileDialog();
+            this.btnExportOpen = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -351,15 +353,30 @@
             this.btnGetImage.UseVisualStyleBackColor = true;
             this.btnGetImage.Click += new System.EventHandler(this.btnGetImage_Click);
             // 
+            // btnExportOpen
+            // 
+            this.btnExportOpen.Location = new System.Drawing.Point(357, 190);
+            this.btnExportOpen.Name = "btnExportOpen";
+            this.btnExportOpen.Size = new System.Drawing.Size(200, 23);
+            this.btnExportOpen.TabIndex = 35;
+            this.btnExportOpen.Text = "Export/Open Excel";
+            this.btnExportOpen.UseVisualStyleBackColor = true;
+            this.btnExportOpen.Click += new System.EventHandler(this.btnExportOpen_Click);
+            // 
             // bindingSource1
             // 
             this.bindingSource1.DataSource = typeof(BC.BizContacts);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx";
             // 
             // BizContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 611);
+            this.Controls.Add(this.btnExportOpen);
             this.Controls.Add(this.btnGetImage);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dateTimePicker1);
@@ -441,5 +458,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnGetImage;
         private System.Windows.Forms.OpenFileDialog dlgOpenImage;
+        private System.Windows.Forms.Button btnExportOpen;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
