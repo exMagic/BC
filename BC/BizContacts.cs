@@ -207,5 +207,23 @@ namespace BC
                 excel = null;
             }
         }
+
+        private void btnSaveToText_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using(StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                {
+                    foreach(DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        foreach(DataGridViewCell cell in row.Cells)
+                            sw.Write(cell.Value);
+                        sw.WriteLine();
+                        
+                    }
+                    Process.Start("notepad.exe", saveFileDialog1.FileName);
+                }
+            }
+        }
     }
 }
