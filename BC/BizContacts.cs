@@ -18,6 +18,8 @@ namespace BC
         SqlDataAdapter dataAdapter;
         DataTable table;
         SqlCommandBuilder commandBuilder;
+        SqlConnection conn;
+        string selectionStatement = "select * from BizContacts";
 
         public BizContacts()
         {
@@ -29,7 +31,7 @@ namespace BC
             cboSearch.SelectedIndex = 0;
             dataGridView1.DataSource = bindingSource1;
 
-            GetData("select * from BizContacts");
+            GetData(selectionStatement);
         }
 
         private void GetData(string selectCommand)
@@ -53,7 +55,7 @@ namespace BC
         {
             SqlCommand command;
             string insert = @"insert into BizContacts(Date_Added, Company, Website, Title, First_Name, Last_Name, Address, City, State, Postal_Code, Mobile, Notes) values(@Date_Added, @Company, @Website, @Title, @First_Name, @Last_Name, @Address, @City, @State, @Postal_Code, @Mobile, @Notes)";
-            using(SqlConnection conn = new SqlConnection(connString))
+            using (conn = new SqlConnection(connString))
             {
                 try
                 {
@@ -79,7 +81,7 @@ namespace BC
                 }
 
             }
-            GetData("Select * from BizContacts");
+            GetData(selectionStatement);
             dataGridView1.Update();
         }
 
@@ -97,6 +99,36 @@ namespace BC
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dataGridView1.CurrentCell.OwningRow;
+            string value = row.Cells["ID"].Value.ToString();
+            string fname = row.Cells["First_Name"].Value.ToString();
+            string lname = row.Cells["Last_Name"].Value.ToString();
+            DialogResult result = MessageBox.Show("Do you really want to delete " + fname + " " + lname + ", record " + value,"Message" , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            string deleteState = @"Delete from BizContacts where id= '" + value + "'";
+            if (result == DialogResult.Yes)
+            {
+                using (conn = new SqlConnection(connString))
+                {
+                    try
+                    {
+                        conn.Open();
+                        SqlCommand comm = new SqlCommand(deleteState, conn);
+                        comm.ExecuteNonQuery();
+                        GetData(selectionStatement);
+                        dataGridView1.Update();
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            
         }
     }
 }
