@@ -65,8 +65,8 @@
             this.dlgOpenImage = new System.Windows.Forms.OpenFileDialog();
             this.btnExportOpen = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.btnSaveToText = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -74,12 +74,16 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 292);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(780, 307);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // label1
@@ -366,11 +370,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx| Text Files (*.txt)|*.txt";
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(BC.BizContacts);
+            this.saveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx| Text Files (*.txt)|*.txt|Word Files (*.docx)|*.docx";
             // 
             // btnSaveToText
             // 
@@ -382,11 +382,15 @@
             this.btnSaveToText.UseVisualStyleBackColor = true;
             this.btnSaveToText.Click += new System.EventHandler(this.btnSaveToText_Click);
             // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(BC.BizContacts);
+            // 
             // BizContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 611);
+            this.ClientSize = new System.Drawing.Size(1092, 611);
             this.Controls.Add(this.btnSaveToText);
             this.Controls.Add(this.btnExportOpen);
             this.Controls.Add(this.btnGetImage);

@@ -12,6 +12,8 @@ using System.Data.Sql;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Word;
+
 
 namespace BC
 {
@@ -168,7 +170,7 @@ namespace BC
 
         private void btnExportOpen_Click(object sender, EventArgs e)
         {
-            _Application excel = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
             _Workbook workbook = excel.Workbooks.Add(Type.Missing);
             _Worksheet worksheet = null;
             try
@@ -225,5 +227,46 @@ namespace BC
                 }
             }
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Int32 selectedCellCount = dataGridView1.CurrentCell.RowIndex;
+            //MessageBox.Show(selectedCellCount.ToString());
+            txtFName.Text = dataGridView1["First_Name", dataGridView1.CurrentCell.RowIndex].Value.ToString();
+        }
+
+        //private void btnOpenWord_Click(object sender, EventArgs e)
+        //{
+        //    Microsoft.Office.Interop.Word._Application word = new Microsoft.Office.Interop.Word.Application();
+        //    Document doc = word.Documents.Add();
+        //    Microsoft.Office.Interop.Word.Range rng = doc.Range(0, 0);
+        //    Table wdTable = doc.Tables.Add(rng, dataGridView1.Rows.Count, dataGridView1.Columns.Count);//diffrence according course
+        //    wdTable.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleDouble;
+        //    wdTable.Borders.InsideLineStyle = WdLineStyle.wdLineStyleSingle;
+        //    try
+        //    {
+        //        doc = word.ActiveDocument;
+        //        for(int i= 0;i<dataGridView1.Rows.Count-1; i++)//dif
+        //        {
+        //            for (int j = 0; j < dataGridView1.ColumnCount; j++)
+        //                wdTable.Cell(i + 1, j + 1).Range.InsertAfter(dataGridView1.Rows[i].Cells[j].Value.ToString());
+        //        }
+        //        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+        //        {
+        //            doc.SaveAs(saveFileDialog1.FileName);
+        //            Process.Start("wordpad.exe", saveFileDialog1.FileName);
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        word.Quit();
+        //        word = null;
+        //        doc = null;
+        //    }
+        //}
     }
 }
