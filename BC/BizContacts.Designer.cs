@@ -60,8 +60,12 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnGetImage = new System.Windows.Forms.Button();
+            this.dlgOpenImage = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -327,6 +331,26 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 32;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(563, 38);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(146, 146);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            // 
+            // btnGetImage
+            // 
+            this.btnGetImage.Location = new System.Drawing.Point(563, 9);
+            this.btnGetImage.Name = "btnGetImage";
+            this.btnGetImage.Size = new System.Drawing.Size(75, 23);
+            this.btnGetImage.TabIndex = 34;
+            this.btnGetImage.Text = "Get Picture";
+            this.btnGetImage.UseVisualStyleBackColor = true;
+            this.btnGetImage.Click += new System.EventHandler(this.btnGetImage_Click);
+            // 
             // bindingSource1
             // 
             this.bindingSource1.DataSource = typeof(BC.BizContacts);
@@ -336,6 +360,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 611);
+            this.Controls.Add(this.btnGetImage);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
@@ -371,6 +397,7 @@
             this.Text = "BizCintacts";
             this.Load += new System.EventHandler(this.BizContacts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -411,5 +438,8 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnGetImage;
+        private System.Windows.Forms.OpenFileDialog dlgOpenImage;
     }
 }

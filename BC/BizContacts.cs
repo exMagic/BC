@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.IO;
 
 namespace BC
 {
@@ -54,7 +55,7 @@ namespace BC
         private void btnAdd_Click(object sender, EventArgs e)
         {
             SqlCommand command;
-            string insert = @"insert into BizContacts(Date_Added, Company, Website, Title, First_Name, Last_Name, Address, City, State, Postal_Code, Mobile, Notes) values(@Date_Added, @Company, @Website, @Title, @First_Name, @Last_Name, @Address, @City, @State, @Postal_Code, @Mobile, @Notes)";
+            string insert = @"insert into BizContacts(Date_Added, Company, Website, Title, First_Name, Last_Name, Address, City, State, Postal_Code, Mobile, Notes, Image) values(@Date_Added, @Company, @Website, @Title, @First_Name, @Last_Name, @Address, @City, @State, @Postal_Code, @Mobile, @Notes, @Image)";
             using (conn = new SqlConnection(connString))
             {
                 try
@@ -73,6 +74,10 @@ namespace BC
                     command.Parameters.AddWithValue(@"Postal_Code", txtZip.Text);
                     command.Parameters.AddWithValue(@"Mobile", txtMobile.Text);
                     command.Parameters.AddWithValue(@"Notes", txtNotes.Text);
+                    if (dlgOpenImage.FileName != "")
+                        command.Parameters.AddWithValue(@"Image", File.ReadAllBytes(dlgOpenImage.FileName));
+                    else
+                        command.Parameters.Add(@"Image", SqlDbType.VarBinary).Value = DBNull.Value;
                     command.ExecuteNonQuery();
                 }
                 catch(Exception ex)
@@ -145,6 +150,19 @@ namespace BC
                     GetData("select * from bizcontacts where lower(company) like '%" + txtSearch.Text.ToLower() + "%' ");
                     break;
             }
+        }
+
+        private void btnGetImage_Click(object sender, EventArgs e)
+        {
+            dlgOpenImage.ShowDialog();
+            pictureBox1.Load(dlgOpenImage.FileName);
+        }
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            Form frm = new Form();
+            frm.BackgroundImage = pictureBox1.Image;
+            frm.Show();
         }
     }
 }
