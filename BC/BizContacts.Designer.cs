@@ -34,7 +34,6 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.cboSearch = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFName = new System.Windows.Forms.TextBox();
@@ -61,6 +60,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -110,10 +110,6 @@
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(BC.BizContacts);
             // 
             // txtTitle
             // 
@@ -309,6 +305,7 @@
             this.btnAdd.TabIndex = 30;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDelete
             // 
@@ -321,10 +318,15 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "";
             this.dateTimePicker1.Location = new System.Drawing.Point(357, 38);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 32;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(BC.BizContacts);
             // 
             // BizContacts
             // 
